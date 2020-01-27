@@ -1,0 +1,18 @@
+type User {
+  id: ID!
+  name: String!
+}
+
+type Journal {
+  id: ID!
+  title: String!
+  body: String!
+}
+
+type Mutation {
+  createJournal(id: ID, title: String!, body: String!): Journal
+}
+
+type Query {
+  journals: [Journal]!
+}
