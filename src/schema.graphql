@@ -1,16 +1,7 @@
-type User {
-  id: ID!
-  name: String!
-}
-
-type Journal {
-  id: ID!
-  title: String!
-  body: String!
-}
+# import * from './generated/prisma.graphql'
 
 type Mutation {
-  createJournal(id: ID, title: String!, body: String!): Journal
+  createJournal(title: String!, body: String!): Journal
 }
 
 type Query {

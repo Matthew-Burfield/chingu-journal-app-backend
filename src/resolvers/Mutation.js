@@ -1,6 +1,16 @@
 const Mutation = {
-  createJournal(parent, args, ctx, info) {
-    return args;
+  async createJournal(parent, args, ctx, info) {
+    // TODO: Check if they are logged in
+
+    const journal = await ctx.db.mutation.createJournal(
+      {
+        data: {
+          ...args
+        }
+      },
+      info
+    );
+    return journal;
   }
 };
 

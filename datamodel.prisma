@@ -3,3 +3,11 @@ type User {
   name: String!
   email: String!
 }
+
+type Journal {
+  id: ID! @id
+  title: String!
+  body: String!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
