@@ -1,7 +1,20 @@
+enum Permission {
+  ADMIN
+  USER
+  ITEMCREATE
+  ITEMUPDATE
+  ITEMDELETE
+  PERMISSIONUPDATE
+}
+
 type User {
   id: ID! @id
   name: String!
-  email: String!
+  email: String! @unique
+  password: String!
+  resetToken: String
+  resetTokenExpired: Float
+  permissions: [Permission] @scalarList(strategy: RELATION)
 }
 
 type Journal {
@@ -10,4 +23,5 @@ type Journal {
   body: String!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
+  user: User!
 }
