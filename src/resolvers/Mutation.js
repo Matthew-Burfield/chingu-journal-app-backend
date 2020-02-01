@@ -21,6 +21,17 @@ const Mutation = {
     return journal;
   },
 
+  async deleteJournal(parent, args, ctx, info) {
+    const journal = await ctx.db.mutation.deleteJournal({
+      where: {
+        id: args.id
+      }
+    });
+
+    console.log(journal);
+    return journal;
+  },
+
   async signup(parent, args, ctx, info) {
     args.email = args.email.toLowerCase();
     const password = await bcrypt.hash(args.password, 11);

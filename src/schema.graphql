@@ -6,6 +6,7 @@ type SuccessMessage {
 
 type Mutation {
   createJournal(title: String!, body: String!): Journal
+  deleteJournal(id: ID): Journal
   signup(email: String!, password: String!, name: String!): User
   login(email: String!, password: String!): User
   signout: SuccessMessage
