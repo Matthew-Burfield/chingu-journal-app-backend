@@ -1,6 +1,15 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+const COOKIE_OPTIONS = {
+  httpOnly: true,
+  sameSite: "None",
+  secure: true,
+  maxAge: 1000 * 60 * 60 * 24 * 365 // Keep the user signed in for 1 year
+};
+
+const createToken = userId => jwt.sign({ userId }, process.env.APP_SECRET);
+
 const Mutation = {
   async createJournal(parent, args, ctx, info) {
     // TODO: Check if they are logged in
@@ -43,15 +52,8 @@ const Mutation = {
       },
       info
     );
-    // create JWT token
-    const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
-    // Send the token back to the user via a cookie in the response
-    ctx.response.cookie("token", token, {
-      httpOnly: true,
-      sameSite: "None",
-      secure: true,
-      maxAge: 1000 * 60 * 60 * 24 * 365 // Keep the user signed in for 1 year
-    });
+    const token = createToken(user.id);
+    ctx.response.cookie("token", token, COOKIE_OPTIONS);
     return user;
   },
 
@@ -67,15 +69,8 @@ const Mutation = {
     if (!user || !bcrypt.compareSync(args.password, user.password)) {
       throw Error("The email address or password is wrong.");
     }
-    // create JWT token
-    const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
-    // Send the token back to the user via a cookie in the response
-    ctx.response.cookie("token", token, {
-      httpOnly: true,
-      sameSite: "None",
-      secure: true,
-      maxAge: 1000 * 60 * 60 * 24 * 365 // Keep the user signed in for 1 year
-    });
+    const token = createToken(user.id);
+    ctx.response.cookie("token", token, COOKIE_OPTIONS);
     delete user.password;
     return user;
   },
