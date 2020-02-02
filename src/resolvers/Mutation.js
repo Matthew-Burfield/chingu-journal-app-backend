@@ -27,8 +27,6 @@ const Mutation = {
         id: args.id
       }
     });
-
-    console.log(journal);
     return journal;
   },
 
