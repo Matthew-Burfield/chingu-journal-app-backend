@@ -48,7 +48,7 @@ const Mutation = {
     // Send the token back to the user via a cookie in the response
     ctx.response.cookie("token", token, {
       httpOnly: true,
-      sameSite: "strict",
+      sameSite: "None",
       maxAge: 1000 * 60 * 60 * 24 * 365 // Keep the user signed in for 1 year
     });
     return user;
@@ -71,6 +71,7 @@ const Mutation = {
     // Send the token back to the user via a cookie in the response
     ctx.response.cookie("token", token, {
       httpOnly: true,
+      sameSite: "None",
       maxAge: 1000 * 60 * 60 * 24 * 365 // Keep the user signed in for 1 year
     });
     delete user.password;
