@@ -49,6 +49,7 @@ const Mutation = {
     ctx.response.cookie("token", token, {
       httpOnly: true,
       sameSite: "None",
+      secure: true,
       maxAge: 1000 * 60 * 60 * 24 * 365 // Keep the user signed in for 1 year
     });
     return user;
@@ -72,6 +73,7 @@ const Mutation = {
     ctx.response.cookie("token", token, {
       httpOnly: true,
       sameSite: "None",
+      secure: true,
       maxAge: 1000 * 60 * 60 * 24 * 365 // Keep the user signed in for 1 year
     });
     delete user.password;
