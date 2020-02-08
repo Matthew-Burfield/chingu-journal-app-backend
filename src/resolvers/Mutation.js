@@ -1,12 +1,21 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const COOKIE_OPTIONS = {
+const sharedCookieOptions = {
   httpOnly: true,
-  sameSite: "None",
-  secure: true,
   maxAge: 1000 * 60 * 60 * 24 * 365 // Keep the user signed in for 1 year
 };
+
+const COOKIE_OPTIONS =
+  process.env.NODE_ENV === "development"
+    ? {
+        ...sharedCookieOptions
+      }
+    : {
+        ...sharedCookieOptions,
+        sameSite: "None",
+        secure: true
+      };
 
 const createToken = userId => jwt.sign({ userId }, process.env.APP_SECRET);
 
